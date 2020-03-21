@@ -6,6 +6,7 @@ export default class API {
 
   async get(endpoint: string, headers?: object) {
     const url = this.baseUrl + trimStart(endpoint, "/");
+
     try {
       const response = await axios.get(url, headers);
       return response.data;
