@@ -2,7 +2,7 @@ import API from "./API";
 
 interface CaseResultValue {
   case_no: number;
-  date: any;
+  date: Date | string;
   age: number;
   gender: string;
   nationality: string;
@@ -55,8 +55,8 @@ export default class Cases extends API {
     };
   }
 
-  async suspected() {
-    const result: SuspectedResultValue = await this.get("suspected-cases");
+  async tests() {
+    const result: SuspectedResultValue = await this.get("test-results");
 
     return {
       confirmed: result.confirmed_cases,

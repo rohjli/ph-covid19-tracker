@@ -1,11 +1,18 @@
 import React from "react";
+import styled from "styled-components";
+
+import { Container } from "./Scaffold";
+
+const Heading = styled.header`
+  text-align: center;
+`;
 
 export default function Header() {
   return (
-    <header>
-      <div className="container">
-        <h1 className="logo">PH NCOV Tracker</h1>
-      </div>
-    </header>
+    <Container>
+      <Heading>
+        <h1 className="logo">PH COVID-19 Tracker</h1>
+      </Heading>
+    </Container>
   );
 }
