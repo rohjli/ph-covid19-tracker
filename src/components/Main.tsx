@@ -3,7 +3,8 @@ import styled from "styled-components";
 
 import Chart from "./Chart";
 import { MEDIA, Container, Row } from "./Scaffold";
-import useCount from "../hooks/useCount";
+import useTestCount from "../hooks/useTestCount";
+import useCases from "../hooks/useCases";
 
 const Card = styled.div`
   flex: 1;
@@ -46,14 +47,15 @@ const CountStyled = styled.span`
 `;
 
 export default function Main() {
-  const count = useCount();
+  const count = useTestCount();
+  const caseData = useCases();
 
   return (
     <Container>
       <Row>
         <Card>
           <h2>Confirmed Cases</h2>
-          <CountStyled className="danger">{count.confirmed}</CountStyled>
+          <CountStyled className="danger">{caseData.count}</CountStyled>
         </Card>
         <Card>
           <h2>Negative Cases</h2>
@@ -67,7 +69,7 @@ export default function Main() {
 
       <Row>
         <Card>
-          <Chart />
+          <Chart data={caseData} />
         </Card>
       </Row>
     </Container>
