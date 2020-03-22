@@ -39,9 +39,22 @@ export default class Cases extends API {
   async all() {
     const results = await this.get("cases");
 
-    return {
-      count: results.length,
-      results: results.map((result: CaseResultValue) => ({
+    let confirmed = 0;
+    let recovered = 0;
+    let died = 0;
+
+    const data = results.map((result: CaseResultValue) => {
+      confirmed++;
+
+      if (result.status === "Died") {
+        died++;
+      }
+
+      if (result.status === "Recovered") {
+        recovered++;
+      }
+
+      return {
         caseNo: result.case_no,
         date: result.date !== "For Validation" ? new Date(result.date) : null,
         age: result.age,
@@ -51,7 +64,16 @@ export default class Cases extends API {
         hasTravelledAbroad: result.had_recent_travel_history_abroad === "Yes",
         status: result.status,
         otherInfo: result.other_information
-      }))
+      };
+    });
+
+    return {
+      total: {
+        confirmed,
+        recovered,
+        died
+      },
+      results: data
     };
   }
 

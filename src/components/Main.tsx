@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import Chart from "./Chart";
 import { MEDIA, Container, Row } from "./Scaffold";
-import useTestCount from "../hooks/useTestCount";
-import useCases from "../hooks/useCases";
+import useData from "../hooks/useData";
 
 const Card = styled.div`
   flex: 1;
@@ -47,29 +46,28 @@ const CountStyled = styled.span`
 `;
 
 export default function Main() {
-  const count = useTestCount();
-  const caseData = useCases();
+  const { count, data } = useData();
 
   return (
     <Container>
       <Row>
         <Card>
-          <h2>Confirmed Cases</h2>
-          <CountStyled className="danger">{caseData.count}</CountStyled>
+          <h2>Confirmed</h2>
+          <CountStyled className="warning">{count.confirmed}</CountStyled>
         </Card>
         <Card>
-          <h2>Negative Cases</h2>
-          <CountStyled className="success">{count.negative}</CountStyled>
+          <h2>Died</h2>
+          <CountStyled className="danger">{count.died}</CountStyled>
         </Card>
         <Card>
-          <h2>Pending Cases</h2>
-          <CountStyled className="warning">{count.pending}</CountStyled>
+          <h2>Recovered</h2>
+          <CountStyled className="success">{count.recovered}</CountStyled>
         </Card>
       </Row>
 
       <Row>
         <Card>
-          <Chart data={caseData} />
+          <Chart data={data} />
         </Card>
       </Row>
     </Container>
